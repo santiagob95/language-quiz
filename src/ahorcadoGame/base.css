@@ -1,0 +1,52 @@
+body {
+  font-family: "Times New Roman", Times, serif;
+}
+.answer {
+  display: flex;
+  text-align: center;
+  
+}
+
+.container {
+  display: block;
+  text-align: center;
+}
+
+.answer-char {
+  font-family: Inconsolata, "Courier New", Courier, monospace;
+  font-size: 64px;
+  width: 33px;
+  margin: 4px;
+  text-align: center;
+}
+
+.hangman {
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.letter {
+  font-size: 32px;
+  margin: 6px;
+  top: 4px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+
+  /*animation: moving 10s alternate infinite ease-in;*/
+}
+
+.letter.revealed {
+  color: red;
+}
+
+.letters-area {
+  display: flex;
+}
+
+@keyframes moving {
+  0% {top: 0px; left: 0px;}
+  100% {top: 100px;}
+}

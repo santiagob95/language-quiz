@@ -6,6 +6,9 @@ import Result from './components/Result';
 import logo from './svg/logo.svg';
 import Button from './components/Button';
 import './App.css';
+import Header from './Header'
+import Container from './ahorcadoGame/Container'
+
 
 
 const quizzes = [
@@ -14,6 +17,10 @@ const quizzes = [
   { id: 3, title: 'Avanzado' },
 ];
 
+const games =[
+  {id: 1, title: 'Quiz'},
+  {id :2, title:'Ahorcado'}
+];
 class App extends Component {
   constructor(props) {
     super(props);
@@ -27,11 +34,13 @@ class App extends Component {
       answersQuantity: {},
       result: '',
       categorySelected:'',
+      gameSelected:'',
       nameUser:'',
     };
     
     this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
     this.handleCategorySelected = this.handleCategorySelected.bind(this);
+    this.handleGameSelected = this.handleGameSelected.bind(this);
     this.handleSubmit= this.handleSubmit.bind(this);
     this.backToInit= this.backToInit.bind(this);
 
@@ -46,10 +55,7 @@ class App extends Component {
      return {
       'home': (
         <div className="App">
-          <div className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1>Language Quiz</h1>
-          </div>
+          <Header className='App-header'/>
           <h1 className="titleWithEffect"> Empecemos a Jugar!</h1>
           <form onSubmit={this.handleSubmit} noValidate>
             <label>
@@ -59,12 +65,35 @@ class App extends Component {
           </form>
         </div>
       ),
+      'gameSelection':(
+        <div className="App">
+          <Header className='App-header'/>
+          <div>
+            <h1 className="titleWithEffect"> Elige Tu Juego</h1>
+              {games.map((item, index) => {
+                  return (
+                    <Button 
+                      key={item.id}
+                      onClick={this.handleGameSelected}
+                      id={item.id}
+                      >
+                      {item.title}
+                    </Button>  
+                  )
+                })
+              }
+          </div>
+          </div>
+      ),
+      'ahorcado':(
+        <div className='App'>
+        <Header className='App-header'/>
+        <Container />
+        </div>
+      ),
       'levelSelection': (
         <div className="App">
-          <div className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1>Language Quiz</h1>
-          </div>
+          <Header className='App-header'/>
           <div>
             <h1 className="titleWithEffect"> Elige Tu Nivel</h1>
               {quizzes.map((item, index) => {
@@ -84,10 +113,7 @@ class App extends Component {
       ),
       'quest':(
       <div className="App">
-      <div className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>Language Quiz</h1>
-      </div>
+      <Header className='App-header'/>
         {this.renderQuiz()}
     </div> ),
       'obtainResults': (
@@ -152,7 +178,19 @@ class App extends Component {
     this.currentPage='quest';
   }
 
+  handleGameSelected(event) {
+    const sel =  games[event.currentTarget.id-1].title;
+    this.setState({gameSelected: sel});
+     if(sel==='Quiz'){
+      this.currentPage='levelSelection';
+     }
+     else if (sel ==='Ahorcado'){
+       this.currentPage='ahorcado';
+     }
+     
 
+    
+  }
   setUserAnswer(answer) {
     this.setState((state, props) => ({
       answersQuantity: {
@@ -227,7 +265,7 @@ class App extends Component {
       
   }
   handleSubmit(event){
-    this.currentPage='levelSelection';
+    this.currentPage='gameSelection';
     this.setState({nameUser: event.target.value});
     event.preventDefault();
   };
