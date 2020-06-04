@@ -9,7 +9,7 @@ const Hangman = (props) => {
   if (props.gameState === 'lose') {
     return (
       <div className="hangman">
-        OMG!! I said OUCH, you killed me!!
+        Al piste perdiste!
       </div>
     );
   }

@@ -4,7 +4,7 @@ import React from 'react';
 const Output = (props) => {
   let output;
   if (props.gameState === 'play') {
-    output = <div className="output">Topic: A character from the "Game of Thrones" series</div>;
+    output = <div className="output">Adivina el pais!</div>;
   } else if (props.gameState === 'win' || props.gameState === 'lose') {
     output = (
       <div className="output">

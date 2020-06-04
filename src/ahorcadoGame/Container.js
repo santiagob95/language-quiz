@@ -5,7 +5,7 @@ import Hangman from './Hangman';
 import Letters from './Letters';
 import Output from './Output';
 // import { restaurants } from './answerList';
-import got from './got';
+import got from './pais';
 
 /**
  * The app container, lord of all components. Probably the one with the state.
