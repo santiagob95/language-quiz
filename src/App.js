@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import "simple.string.format";
 import quizQuestions from './questions/allQuestions';
 import lecturaQuestions  from './questions/LectQuestions'
+import lecturaQuestions1  from './questions/LectQuestions1'
+import lecturaQuestions2  from './questions/LectQuestions2'
 import Quiz from './components/Quiz';
 import Result from './components/Result';
 import logo from './svg/logo.svg';
@@ -9,6 +11,7 @@ import Button from './components/Button';
 import './App.css';
 import Header from './Header'
 import Container from './ahorcadoGame/Container'
+import TextoPopUp from './components/TextoPopUp'
 
 
 
@@ -39,12 +42,13 @@ class App extends Component {
       gameSelected:'',
       nameUser:'',
     };
-    
+  
     this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
     this.handleAnswerSelectedLect = this.handleAnswerSelectedLect.bind(this);
     this.handleCategorySelected = this.handleCategorySelected.bind(this);
     this.handleCategorySelectedLect = this.handleCategorySelectedLect.bind(this);
     this.handleGameSelected = this.handleGameSelected.bind(this);
+  
     this.handleSubmit= this.handleSubmit.bind(this);
     this.backToInit= this.backToInit.bind(this);
 
@@ -104,7 +108,7 @@ class App extends Component {
                 return (
                   <Button 
                     key={item.id}
-                    onClick={this.handleCategorySelectedLect}
+                    onClick={this.handleCategorySelectedLect  }
                     id={item.id}
                     >
                     {item.title}
@@ -144,7 +148,10 @@ class App extends Component {
           'quest-lect':(
             <div className="App">
             <Header className='App-header'/>
-              {this.renderQuizLect()}
+            
+            {this.renderQuizLectaux()}
+    
+              
           </div> ),
       'obtainResults': (
         <div className="App">
@@ -162,12 +169,13 @@ class App extends Component {
 
   componentDidMount() {
     
-
-    if (this.state.gameSelected === games[0].title) {
+    
+    if (this.state.gameSelected === games[0].title) 
+    {    
     const mixedAnswers = quizQuestions.map(question =>
       this.mixQuestions(question.answers)
     );
-    console.log("test1");
+   
     this.setState({
 
       question: quizQuestions[0].question,
@@ -175,15 +183,49 @@ class App extends Component {
     });
   }
   if (this.state.gameSelected === games[2].title) {
-    const mixedAnswers = lecturaQuestions.map(question =>
-      this.mixQuestions(question.answers)
-    );
-    this.setState({
-      question: lecturaQuestions[0].question,
-      answerOptions: mixedAnswers[0]
-    });
+ 
+      if(this.state.categorySelected===quizzes[0].title) 
+        {
+          const mixedAnswers = lecturaQuestions.map(question =>
+            this.mixQuestions(question.answers)
+          );
+          this.setState({
+            question: lecturaQuestions[0].question,
+            answerOptions: mixedAnswers[0]
+          });
+        }
+        if(this.state.categorySelected===quizzes[1].title) 
+        {
+          const mixedAnswers = lecturaQuestions1.map(question =>
+            this.mixQuestions(question.answers)
+          );
+          this.setState({
+            question: lecturaQuestions1[0].question,
+            answerOptions: mixedAnswers[0]
+          });
+        }
+        if(this.state.categorySelected===quizzes[2].title) 
+        {
+          const mixedAnswers = lecturaQuestions2.map(question =>
+            this.mixQuestions(question.answers)
+          );
+          this.setState({
+            question: lecturaQuestions2[0].question,
+            answerOptions: mixedAnswers[0]
+          });
+        }
+      
+      
+      
+      
+      }
   }
-  }
+  
+
+
+
+
+  
   mixQuestions(array) {
     var currentIndex = array.length,
       temporaryValue,
@@ -214,8 +256,17 @@ class App extends Component {
 
   handleAnswerSelectedLect(event) {
     this.setUserAnswer(event.currentTarget.value);
+
     if (this.state.questionId < lecturaQuestions.length) {
-      setTimeout(() => this.setNextQuestionLect(), 500);
+      if(this.state.categorySelected===quizzes[0].title){
+              setTimeout(() => this.setNextQuestionLect(), 500);
+            }
+      if(this.state.categorySelected===quizzes[1].title){
+              setTimeout(() => this.setNextQuestionLect1(), 500);
+            }
+      if(this.state.categorySelected===quizzes[2].title){
+              setTimeout(() => this.setNextQuestionLect2(), 500);
+            }
     } else {
       setTimeout(() => this.setResults(this.obtainResults()), 500);
     }
@@ -228,22 +279,27 @@ class App extends Component {
 // }
 
 handleCategorySelected(event) {
-  //this.setState({categorySelected: quizzes[event.currentTarget.id-1].title});
-  const levelsel = quizzes[event.currentTarget.id-1].title;
-  this.setState({categorySelected:  levelsel});
-  this.componentDidMount();
+  this.setState({categorySelected: quizzes[event.currentTarget.id-1].title});
+  console.log(this.state.categorySelected + "categoria ")
+
+ 
   
   this.currentPage='quest';
 }
 
   handleCategorySelectedLect(event) {
-    //this.setState({categorySelected: quizzes[event.currentTarget.id-1].title});
-    const levelsel = quizzes[event.currentTarget.id-1].title;
-    this.setState({categorySelected:  levelsel});
-    this.componentDidMount();
+  this.setState({categorySelected: quizzes[event.currentTarget.id-1].title});
+  console.log(this.state.categorySelected + "categoria ")
     
-    this.currentPage='quest-lect';
+  this.currentPage='quest-lect';
+  
+   
   }
+
+
+ 
+
+
 
   handleGameSelected(event) {
     const gamesel =  games[event.currentTarget.id-1].title;
@@ -274,6 +330,7 @@ handleCategorySelected(event) {
   }
 
   setNextQuestionLect() {
+    
     const counter = this.state.counter + 1;
     const questionId = this.state.questionId + 1;
     this.setState({
@@ -281,6 +338,30 @@ handleCategorySelected(event) {
       questionId: questionId,
       question: lecturaQuestions[counter].question,
       answerOptions: lecturaQuestions[counter].answers,
+      answer: '',
+    });
+  }
+
+  setNextQuestionLect1() {
+    const counter = this.state.counter + 1;
+    const questionId = this.state.questionId + 1;
+    this.setState({
+      counter: counter,
+      questionId: questionId,
+      question: lecturaQuestions1[counter].question,
+      answerOptions: lecturaQuestions1[counter].answers,
+      answer: '',
+    });
+  }
+
+  setNextQuestionLect2() {
+    const counter = this.state.counter + 1;
+    const questionId = this.state.questionId + 1;
+    this.setState({
+      counter: counter,
+      questionId: questionId,
+      question: lecturaQuestions2[counter].question,
+      answerOptions: lecturaQuestions2[counter].answers,
       answer: '',
     });
   }
@@ -305,34 +386,50 @@ handleCategorySelected(event) {
     this.setState({ result: result })
 }
 
-  renderQuizLect() 
-  
-  {
-    if (this.state.result){
-      this.currentPage='obtainResults';
-    }
 
-    return (
-      <div className="App">
-      <Quiz
-        answer={this.state.answer}
+
+
+
+ renderQuizLectaux()
+   {
+
+    
+  if (this.state.result){
+    this.currentPage='obtainResults';
+  }
+
+  return (
+   
+
+    <div className="App">
+    <div> <TextoPopUp  /></div>
+    <alert> Comencemos! </alert>
+    <Quiz
+      answer={this.state.answer}
         answerOptions={this.state.answerOptions}
         questionId={this.state.questionId}
         question={this.state.question}
-        questionTotal={lecturaQuestions.length}
-        onAnswerSelected={this.handleAnswerSelectedLect}
-      />
-      </div>
-    )
-  }
+        questionTotal={quizQuestions.length}
+      onAnswerSelected={this.handleAnswerSelectedLect}
+    />
+    </div>
+  )
+}
+
+
+  
+
 
   renderQuiz() {
+
+    
     if (this.state.result){
       this.currentPage='obtainResults';
     }
 
     return (
       <div className="App">
+      
       <Quiz
         answer={this.state.answer}
         answerOptions={this.state.answerOptions}
@@ -353,18 +450,21 @@ handleCategorySelected(event) {
 
 
   backToInit(event){
-    this.currentPage='levelSelection';
+    this.currentPage='gameSelection';
     event.preventDefault();
     this.setState({counter: 0,
-      questionId: 1,
-      question: '',
+      questionId: 0,
+      question: ' ',
       answerOptions: [],
       answer: '',
       answersQuantity: {},
+      gameSelected:"Ninguno",
+
       result: '',
       categorySelected:'',
       nameUser:''});
-    this.componentDidMount();
+
+    
       
   }
   handleSubmit(event){
@@ -374,7 +474,7 @@ handleCategorySelected(event) {
   };
 
   render() {
-    this.pages = this.generatePages();
+        this.pages = this.generatePages();
     return this.pages[this.currentPage];
 }
 }
