@@ -41,6 +41,7 @@ class App extends Component {
       categorySelected:'',
       gameSelected:'',
       nameUser:'',
+      passUser:''
     };
   
     this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
@@ -67,7 +68,21 @@ class App extends Component {
           <h1 className="titleWithEffect"> Empecemos a Jugar!</h1>
           <form onSubmit={this.handleSubmit} noValidate>
             <label>
-            <input type="text" placeholder="Nombre" name='name' value={this.state.nameUser} onChange={(e) => {this.setState({nameUser: e.target.value })}} />
+            <input type="text" 
+                   placeholder="Nombre" 
+                   name='name' 
+                   value={this.state.nameUser} 
+                   onChange={(e) => {this.setState({nameUser: e.target.value })}} 
+                   />
+            </label>
+            <label>
+            <input  type="password" 
+                    required 
+                    placeholder="Contraseña"
+                    name='pass' 
+                    value={this.state.passUser} 
+                    onChange={(e) => {this.setState({passUser: e.target.value })}}
+                     />
             </label>
             <Button onClick={this.handleSubmit} > Ingresar!</Button>
           </form>
@@ -462,7 +477,8 @@ handleCategorySelected(event) {
 
       result: '',
       categorySelected:'',
-      nameUser:''});
+      nameUser:'',
+      passUser:''});
 
     
       
