@@ -1,89 +1,90 @@
 var quizQuestions = [
   {
-      question: "Completa la siguiente frase:«No ______ más café.»",
+      question: "¿A qué animal le gusta comer zanahorias?",
+
       answers: [
           {
               result:"incorrect",
-              content: "ahí",
+              content: "Conego",
              
           },
           {
-              result:"incorrect",
-              content: "ay",
+              result:"inorrect",
+              content: "Coneguo",
               
           },
           {
               result:"correct",
-              content: "hay",
+              content: "Conejo",
               
           }
       ]
   },
   {
-      question: "Completa la siguiente frase:«Me comería una bolsa de _____»",
+      question: "En verano nos gusta ir a la ... ",
       answers: [
           {
               result:"incorrect",
-              content: "manises"
+              content: "Plalla"
           },
           {
               result:"correct",
-              content: "maníes"
+              content: "Playa"
           },
           {
               result:"incorrect",
-              content: "manís"
+              content: "Plasha"
           }
       ]
   },
   {
-      question: "Completa la siguiente frase:«¡______ si nos juntamos algún día!»",
+      question: "¿Qué animal nos da mucha lana?",
       answers: [
           {
               result:"incorrect",
-              content: "Haber"
+              content: "Abeja"
           },
           {
               result:"incorrect",
-              content: "Haver"
+              content: "Obeja"
           },
           {
               result:"correct",
-              content: "A ver"
+              content: "Oveja"
           }
       ]
   },
   {
-      question: "Completa la siguiente frase: «No debes perder la _____»",
+      question: "Lugar en donde aprendemos muchas cosas con nuestros profesores",
       answers: [
           {
               result:"incorrect",
-              content: "concentrasión"
+              content: "Colejio"
           },
           {
               result:"correct",
-              content: "concentración"
+              content: "Colegio"
           },
           {
               result:"incorrect",
-              content: "consentración"
+              content: "Coleguio"
           }
       ]
   },
   {
-      question: "El sufijo de la palabra pasear es:",
+      question: "Sirven para cortar muchas cosas, por ejemplo papel.",
       answers: [
           {
               result:"incorrect",
-              content: "-pas"
+              content: "Tigueras"
           },
           {
               result:"incorrect",
-              content: "-ar"
+              content: "Tigeras"
           },
           {
               result:"correct",
-              content: "ear"
+              content: "Tijeras"
           }
       ]
   }
