@@ -28,7 +28,7 @@ const quizzes = [
 ];
 
 const games = [
-  { id: 1, title: 'Quiz' },
+  { id: 1, title: 'Quiz' }, 
   { id: 2, title: 'Ahorcado' },
   { id: 3, title: 'Lectura' }
 ];
