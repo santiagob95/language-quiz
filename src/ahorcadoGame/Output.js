@@ -5,7 +5,7 @@ import Button from '../components/Button'
 const Output = (props) => {
   let output;
   if (props.gameState === 'play') {
-    output = <div className="outputahorcado">Adivina el pais!</div>;
+    output = <div className="outputahorcado">¡Frutas y Verduras! Adivina la palabra</div>;
   } else if (props.gameState === 'win' || props.gameState === 'lose') {
     output = (
       <div className="output">
