@@ -20,7 +20,7 @@ const Hangman = (props) => {
 
   return (
     <div className="hangman">
-      <span>{ouch}</span>
+      <span>{ouch}<br/></span>
     </div>
   );
 };

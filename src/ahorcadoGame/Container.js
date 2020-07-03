@@ -4,6 +4,7 @@ import Answer from './Answer';
 import Hangman from './Hangman';
 import Letters from './Letters';
 import Output from './Output';
+import './base.css'
 // import { restaurants } from './answerList';
 import got from './pais';
 
