@@ -499,16 +499,16 @@ handleCategorySelected(event) {
     }
 
     //el prevent default no funca, no se porque. Pero con este if evitamos que avance, pero queda el boton apretado, bug?
-     if(this.state.username !==''){
+     if(this.state.nameUser !==''){
 
-        console.log(this.state.username);
-        console.log(this.state.pass);
+        console.log(this.state.nameUser);
+        console.log(this.state.passUser);
 
         axios.post(
           'http://localhost:5000/users/add',
           {
-              username: this.state.username,
-              password: this.state.password,
+              username: this.state.nameUser,
+              password: this.state.passUser,
           },
           {config}
           ).then(response => {
