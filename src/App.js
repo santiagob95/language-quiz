@@ -124,7 +124,7 @@ class App extends Component {
       'ahorcado': (
         <div className='App'>
           <Header className='App-header' />
-          <Container />
+          <Container dif={this.state.categorySelected}/>
           <div><Button2 onClick={this.backToInit}>Volver</Button2> </div>
           <h1> </h1>
         </div>

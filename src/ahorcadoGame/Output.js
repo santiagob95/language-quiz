@@ -1,5 +1,6 @@
 import React from 'react';
 import './base.css'
+import Button from '../components/Button'
 // TODO: play next game? reveal answer
 const Output = (props) => {
   let output;
@@ -8,7 +9,7 @@ const Output = (props) => {
   } else if (props.gameState === 'win' || props.gameState === 'lose') {
     output = (
       <div className="output">
-        <button onClick={props.nextGame}>Play Again</button>
+        <Button onClick={props.nextGame}>Play Again</Button>
       </div>
     );
   }

@@ -6,24 +6,32 @@ import Letters from './Letters';
 import Output from './Output';
 import './base.css'
 // import { restaurants } from './answerList';
-import got from './pais';
+import paises from './pais';
 
 /**
  * The app container, lord of all components. Probably the one with the state.
  */
 class Container extends React.Component {
-  constructor() {
-    super();
-    const answers = _.shuffle(got);
+  constructor(props) {
+    super(props);
+    const answers = _.shuffle(paises);
     const answer = answers.pop();
     // console.log(answer);
+  
     this.state = {
+      vidas:10,
       answers,
       answer,
       revealed: [],
       incorrectCount: 0,
       gameState: 'play', //TODO: throw in constant file
     };
+    if(props.dif==='Intermedio'){
+      this.state.vidas=7;
+    }
+    else if(props.dif === 'Avanzado'){
+      this.state.vidas=5;
+    }
     this.revealLetter = this.revealLetter.bind(this);
     this.nextGame = this.nextGame.bind(this);
   }
@@ -46,6 +54,7 @@ class Container extends React.Component {
   revealLetter(letter) {
     // is this too much logic for a component?
     let { revealed, gameState, incorrectCount } = this.state;
+  
     const answerArray = this.toAlphanumericArray(this.state.answer.toLowerCase());
 
     if (this.state.gameState === 'play') {
@@ -54,8 +63,9 @@ class Container extends React.Component {
 
       if (_.difference(answerArray, revealed).length === 0) {
         gameState = 'win';
-      } else if (incorrectCount === 5) {
+      } else if (incorrectCount === this.state.vidas) {
         gameState = 'lose';
+        revealed = this.state.answer
       }
 
       this.setState({
