@@ -9,6 +9,7 @@ import Result from './components/Result';
 import logo from './svg/logo.svg';
 import Button from './components/Button';
 import './App.css';
+import axios from 'axios'
 import Header from './Header'
 import Container from './ahorcadoGame/Container'
 import TextoPopUp from './components/TextoPopUp'
@@ -483,11 +484,44 @@ handleCategorySelected(event) {
     
       
   }
+
   handleSubmit(event){
-    this.currentPage='gameSelection';
-    this.setState({nameUser: event.target.value});
     event.preventDefault();
-  };
+    this.setState({username: this.state.nameUser});
+    this.setState({pass: this.state.passUser});
+
+    let config = {
+      headers: {
+        'Access-Control-Allow-Origin':'http://localhost:3000',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, DELETE'
+      }
+    }
+
+    //el prevent default no funca, no se porque. Pero con este if evitamos que avance, pero queda el boton apretado, bug?
+     if(this.state.username !==''){
+
+        console.log(this.state.username);
+        console.log(this.state.pass);
+
+        axios.post(
+          'http://localhost:5000/users/add',
+          {
+              username: this.state.username,
+              password: this.state.password,
+          },
+          {config}
+          ).then(response => {
+              console.log("Success ========>", response);
+              this.currentPage='gameSelection';
+          })
+          .catch(error => {
+              console.log("Error ========>", error);
+          })
+
+    }
+   
+    };
 
   render() {
         this.pages = this.generatePages();
