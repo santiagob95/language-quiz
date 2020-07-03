@@ -12,6 +12,7 @@ import logo from './svg/logo.png';
 import Button from './components/Button';
 import Button2 from './components/Button2';
 import './App.css';
+import axios from 'axios'
 import Header from './Header'
 import Container from './ahorcadoGame/Container'
 import TextoPopUp from './components/TextoPopUp'
@@ -43,9 +44,10 @@ class App extends Component {
       answer: '',
       answersQuantity: {},
       result: '',
-      categorySelected: '',
-      gameSelected: '',
-      nameUser: '',
+      categorySelected:'',
+      gameSelected:'',
+      nameUser:'',
+      passUser:''
     };
 
     let level = '';
@@ -76,7 +78,21 @@ class App extends Component {
           <h1 className="titleWithEffect"> Empecemos a Jugar!</h1>
           <form onSubmit={this.handleSubmit} noValidate>
             <label>
-              <input type="text" placeholder="Nombre" name='name' value={this.state.nameUser} onChange={(e) => { this.setState({ nameUser: e.target.value }) }} />
+            <input type="text" 
+                   placeholder="Nombre" 
+                   name='name' 
+                   value={this.state.nameUser} 
+                   onChange={(e) => {this.setState({nameUser: e.target.value })}} 
+                   />
+            </label>
+            <label>
+            <input  type="password" 
+                    required 
+                    placeholder="Contraseña"
+                    name='pass' 
+                    value={this.state.passUser} 
+                    onChange={(e) => {this.setState({passUser: e.target.value })}}
+                     />
             </label>
             <Button onClick={this.handleSubmit} > Ingresar!</Button>
           </form>
@@ -506,11 +522,9 @@ class App extends Component {
       gameSelected: "Ninguno",
 
       result: '',
-      categorySelected: '',
-      nameUser: ''
-    });
-
-
+      categorySelected:'',
+      nameUser:'',
+      passUser:''});
 
   }
 
@@ -538,7 +552,41 @@ class App extends Component {
     this.currentPage = 'gameSelection';
     this.setState({ nameUser: event.target.value });
     event.preventDefault();
-  };
+    this.setState({username: this.state.nameUser});
+    this.setState({pass: this.state.passUser});
+
+    let config = {
+      headers: {
+        'Access-Control-Allow-Origin':'http://localhost:3000',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, DELETE'
+      }
+    }
+
+    //el prevent default no funca, no se porque. Pero con este if evitamos que avance, pero queda el boton apretado, bug?
+     if(this.state.nameUser !==''){
+
+        console.log(this.state.nameUser);
+        console.log(this.state.passUser);
+
+        axios.post(
+          'http://localhost:5000/users/add',
+          {
+              username: this.state.nameUser,
+              password: this.state.passUser,
+          },
+          {config}
+          ).then(response => {
+              console.log("Success ========>", response);
+              this.currentPage='gameSelection';
+          })
+          .catch(error => {
+              console.log("Error ========>", error);
+          })
+
+    }
+   
+    };
 
   render() {
     this.pages = this.generatePages();
